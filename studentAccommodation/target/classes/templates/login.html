@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/styles.css}" />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <title>Student Accommodation - Login</title>
+</head>
+<body>
+<nav>
+  <input type="checkbox" id="check" />
+  <label for="check" class="checkbtn">
+    <i class="fas fa-bars"></i>
+  </label>
+  <label class="logo">HustlrAccommodation</label>
+  <ul>
+    <li><a th:href="@{/}">Acasă</a></li>
+    <li><a href="#">Anunțuri</a></li>
+    <li><a href="#">Spații de cazare</a></li>
+    <li><a  class="active" th:href="@{/login}">Logare</a></li>
+    <li><a href="#">Contacte</a></li>
+  </ul>
+</nav>
+<section>
+  <!-- Display "Already logged in" message when user is authenticated -->
+  <div th:if="${session.loggedInUser}">
+    <p>Already logged in</p>
+  </div>
+  <!-- Display login form when user is not authenticated -->
+  <div th:unless="${session.loggedInUser}">
+    <h2>Autentificare</h2>
+    <form th:action="@{/login}" method="post">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</section>
+</body>
+</html>
