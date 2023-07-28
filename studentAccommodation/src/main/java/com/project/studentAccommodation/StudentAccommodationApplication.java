@@ -2,12 +2,12 @@ package com.project.studentAccommodation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@SpringBootApplication
-//@ComponentScan(basePackages = "com.project.studentAccommodation")
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class StudentAccommodationApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
