@@ -1,6 +1,9 @@
 package com.project.studentAccommodation.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Collection;
 import java.util.List;
@@ -8,7 +11,9 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "students")
-//implements UserDetails??
+@Getter
+@Setter
+@NoArgsConstructor
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,14 +25,16 @@ public class Student {
     protected String lastName;
     @Column(name = "nr_matricol", unique = true)
     protected String nrMatricol;
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     protected String email;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     protected String password;
     @Column(name = "year")
     protected Integer year;
     @Column(name = "score")
     protected Integer score;
+    @Column(name = "gender")
+    protected String gender;
     @ManyToOne
     @JoinColumn(name = "preference1_accommodation_id")
     protected Accommodation preference1;
@@ -41,63 +48,16 @@ public class Student {
     @JoinColumn(name = "preference4_accommodation_id")
     protected Accommodation preference4;
     @ManyToOne
-    @JoinColumn(name = "preference5_accommodation_id")
-    protected Accommodation preference5;
-    @ManyToOne
     @JoinColumn(name = "assigned_accommodation_id")
     protected Accommodation assignedAccommodation;
     @ManyToOne
     @JoinColumn(name = "confirmed_accommodation_id")
     protected Accommodation confirmedAccommodation;
 
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
-//
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of(new SimpleGrantedAuthority(role.name()));
-//    }
-//
-//    @Override
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Student() {
-    }
-
-    public Student(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Student(String nrMatricol, String email, String password) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+        this.nrMatricol = nrMatricol;
         this.email = email;
         this.password = password;
     }

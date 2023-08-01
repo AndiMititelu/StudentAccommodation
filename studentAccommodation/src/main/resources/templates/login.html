@@ -20,26 +20,44 @@
   <ul>
     <li><a th:href="@{/}">Acasă</a></li>
     <li><a href="#">Anunțuri</a></li>
+    <li><a href="#">Înscriere cazare</a></li>
     <li><a href="#">Spații de cazare</a></li>
     <li><a  class="active" th:href="@{/login}">Logare</a></li>
     <li><a href="#">Contacte</a></li>
   </ul>
 </nav>
-<section>
-  <!-- Display "Already logged in" message when user is authenticated -->
-  <div th:if="${session.loggedInUser}">
-    <p>Already logged in</p>
-  </div>
-  <!-- Display login form when user is not authenticated -->
-  <div th:unless="${session.loggedInUser}">
-    <h2>Autentificare</h2>
-    <form th:action="@{/login}" method="post">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-      <button type="submit">Login</button>
-    </form>
+  <section>
+    <!-- Display "Already logged in" message when user is authenticated -->
+    <div th:if="${session.loggedInUser}">
+      <p>Already logged in</p>
+    </div>
+    <!-- Display log-in/sign-up form when user is not authenticated -->
+    <div th:unless="${session.loggedInUser}">
+  <!--    <h2>Autentificare</h2>-->
+    <div class="login-form-container">
+      <form th:action="@{/login}" method="post">
+        <h2>Autentificare</h2>
+        <label for="email-login">Email:</label>
+        <input type="email" id="email-login" name="email" required>
+        <label for="password-login">Password:</label>
+        <input type="password" id="password-login" name="password" required>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+    <div class="register-form-container">
+      <form th:action="@{/register}" method="post">
+        <h2>Înregistrare</h2>
+        <!-- Add your register form fields here -->
+        <label for="nrMatricol">Nr matricol:</label>
+        <input type="text" id="nrMatricol" name="nrMatricol" required>
+        <label for="email-register">Email:</label>
+        <input type="email" id="email-register" name="email" required>
+        <label for="password-register">Password:</label>
+        <input type="password" id="password-register" name="password" required>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+
   </div>
 </section>
 </body>

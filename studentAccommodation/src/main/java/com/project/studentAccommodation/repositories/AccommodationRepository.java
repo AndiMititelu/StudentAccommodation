@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface AccommodationRepository extends JpaRepository<Accommodation, Integer> {
     //Optional<Accommodation> findBy(Integer integer);
+    Accommodation findByName (String name);
 }
