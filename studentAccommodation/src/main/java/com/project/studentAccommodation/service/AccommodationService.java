@@ -6,42 +6,49 @@ import com.project.studentAccommodation.repositories.AccommodationRepository;
 import com.project.studentAccommodation.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 public class AccommodationService {
-    @Autowired
-    StudentRepository studentRepository;
+//    @Autowired
+//    StudentRepository studentRepository;
     @Autowired
     AccommodationRepository accommodationRepository;
-    void findBestMatch() {
-        List<Student> students = studentRepository.findAll();
-        List<Accommodation> accommodations = accommodationRepository.findAll();
-        List<Accommodation> preferredAccommodations = new ArrayList<>();
+    @Autowired
+    StudentService studentService;
+    public void findBestAccommodation() {
+        List<Student> students = studentService.getStudentsAfterScore();
         for(Student student : students) {
-            preferredAccommodations.add(student.getPreference1());
-        }
-
-        // Irving's Algorithm
-        for (Accommodation accommodation : accommodations) {
-            List<Student> sortedStudents = accommodation.getSortedStudentsByScore();
-            for (Student student : sortedStudents) {
-                if (student.getAssignedAccommodation() == null && accommodation.getCapacity() > 0) {
-                    // Tentatively accept the proposal
-                    Accommodation currentAccommodation = student.getAssignedAccommodation();
-                    if (currentAccommodation != null) {
-                        currentAccommodation.setCapacity(currentAccommodation.getCapacity() - 1);
+            if(studentService.isAssigned(student) == false) {
+                for(String preference : student.getAllPreferences()) {
+                    if(isPreferenceAvailable(preference, student) == true) {
+                        updateAccommodationForStudent(student, preference);
+                        break;
                     }
-
-                    student.setAssignedAccommodation(accommodation);
-                    //accommodation.setCapacity(accommodation.getCapacity() - 1);
                 }
             }
         }
+    }
 
-        // At this point, the matching is stable and complete.
-        // You can save the final results in the database if needed.
+    boolean isPreferenceAvailable(String preferenceName, Student student) {
+        for(Accommodation accommodation : accommodationRepository.findAll()) {
+            if(Objects.equals(accommodation.getName(), preferenceName)) {
+                //TODO: verificare gender inainte
+                if(accommodation.getCapacity() > 0) {
+                    //lower capacity for that accommodation
+                    accommodation.setCapacity(accommodation.getCapacity() - 1);
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+
+        return false;
+    }
+
+    void updateAccommodationForStudent(Student student, String accommodationName) {
+        student.setAssignedAccommodation(accommodationRepository.findByName(accommodationName).getName());
+        studentService.updateStudent(student);
     }
 
 }

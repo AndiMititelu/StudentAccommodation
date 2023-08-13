@@ -24,19 +24,20 @@ public class Accommodation {
 //    protected Integer capacityMen;
     @Column(name = "capacity")
     protected Integer capacity;
-    @Column(name = "preference1_students")
-    @OneToMany(mappedBy = "preference1", cascade = CascadeType.ALL, orphanRemoval = true)
-    protected List<Student> preference1Students;
-    @OneToMany(mappedBy = "assignedAccommodation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Student> acceptedStudents;
-    @OneToMany(mappedBy = "confirmedAccommodation", cascade = CascadeType.ALL, orphanRemoval = true)
-    protected List<Student> confirmedStudentList;
+    @Column(name = "preference1_students") //Studenti - nr matricol
+//    @OneToMany(mappedBy = "preference1", cascade = CascadeType.ALL, orphanRemoval = true)
+    protected List<String> preference1Students;
+//    @OneToMany(mappedBy = "assignedAccommodation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "acceptedStudents") //Studenti - nr matricol
+    private List<String> acceptedStudents;
+//    @OneToMany(mappedBy = "confirmedAccommodation", cascade = CascadeType.ALL, orphanRemoval = true)
+//    protected List<String> confirmedStudentList;
 
-    public List<Student> getSortedStudentsByScore() {
-        List<Student> sortedStudents = new ArrayList<>();
-        sortedStudents.addAll(preference1Students);
-        sortedStudents.sort(Comparator.comparingInt(Student::getScore).reversed());
-        return sortedStudents;
-    }
+//    public List<Student> getSortedStudentsByScore() {
+//        List<Student> sortedStudents = new ArrayList<>();
+//        sortedStudents.addAll(preference1Students);
+//        sortedStudents.sort(Comparator.comparingInt(Student::getScore).reversed());
+//        return sortedStudents;
+//    }
 
 }

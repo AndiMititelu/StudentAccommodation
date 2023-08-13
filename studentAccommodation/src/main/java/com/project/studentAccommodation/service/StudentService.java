@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StudentService {
     @Autowired
-    private StudentRepository studentRepository;
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    protected StudentRepository studentRepository;
+    protected BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Student authenticateStudent(String email, String password) {
         Student student = studentRepository.findByEmail(email);
@@ -27,7 +27,7 @@ public class StudentService {
             return null; // Registration failed, student with email already exists
         }
         Student student = new Student(nrMatricol, email, passwordEncoder.encode(password));
-        System.out.println(student);
+
         return studentRepository.save(student);
     }
 
@@ -44,6 +44,26 @@ public class StudentService {
             foundStudent.setGender(student.getGender());
             studentRepository.save(foundStudent);
         }
+    }
+
+    public void deleteStudentById(UUID id) {
+        studentRepository.deleteById(id);
+    }
+
+    public List<Student> getStudentsAfterScore() {
+        List<Student> students = studentRepository.findAll();
+        Collections.sort(students, new Comparator<Student>() {
+            @Override
+            public int compare(Student s1, Student s2) {
+                // Sorting: higher score first
+                return Integer.compare(s2.getScore(), s1.getScore());
+            }
+        });
+        return students;
+    }
+
+    public boolean isAssigned(Student student) {
+        return student.getAssignedAccommodation() != null;
     }
 
 }
