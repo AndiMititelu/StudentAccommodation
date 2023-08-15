@@ -25,4 +25,6 @@ public class User {
     protected String password;
     @Enumerated(EnumType.STRING)
     protected Role role;
+    @Column(name = "reset_token", unique = true)
+    protected String resetToken;
 }

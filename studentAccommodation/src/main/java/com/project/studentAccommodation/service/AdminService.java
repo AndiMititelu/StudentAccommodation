@@ -25,4 +25,11 @@ public class AdminService {
 
     }
 
+    public void updateAdmin(Admin admin) {
+        Admin foundAdmin = adminRepository.findByEmail(admin.getEmail());
+        if(foundAdmin != null) {
+            adminRepository.save(foundAdmin);
+        }
+    }
+
 }

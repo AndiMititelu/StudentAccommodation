@@ -44,11 +44,14 @@ public class AuthenticationController {
     {
         //Search the email in ADMIN repo and STUDENT repo
         //role == Role.STUDENT
-        if(studentRepository.findByEmail(email) != null) {
+        Student student = studentRepository.findByEmail(email);
+        if(student != null) {
             Student authenticatedStudent = studentService.authenticateStudent(email, password);
             if(authenticatedStudent != null) {
                 session.setAttribute("loggedInUser", authenticatedStudent); // store the user's login session
                 session.setAttribute("userRole", "STUDENT"); // Store the user's role in the session
+                student.setRole(Role.STUDENT);
+                studentService.updateStudent(student);
                 return "redirect:/";
             }
             else {
@@ -63,6 +66,8 @@ public class AuthenticationController {
             if(admin != null) {
                 session.setAttribute("loggedInUser", admin);
                 session.setAttribute("userRole", "ADMIN"); // Store the user's role in the session
+                admin.setRole(Role.ADMIN);
+                adminService.updateAdmin(admin);
                 return "redirect:/";
             }
             else {
@@ -81,6 +86,7 @@ public class AuthenticationController {
             //Register successful, save user info in session
             session.setAttribute("loggedInUser", registeredStudent);
             session.setAttribute("userRole", "STUDENT");
+
             return "redirect:/";
         }
         else {

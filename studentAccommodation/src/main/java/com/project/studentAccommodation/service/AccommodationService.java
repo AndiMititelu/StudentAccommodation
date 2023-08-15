@@ -5,9 +5,11 @@ import com.project.studentAccommodation.models.Student;
 import com.project.studentAccommodation.repositories.AccommodationRepository;
 import com.project.studentAccommodation.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class AccommodationService {
 //    @Autowired
 //    StudentRepository studentRepository;

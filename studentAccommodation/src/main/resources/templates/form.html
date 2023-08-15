@@ -37,32 +37,6 @@
   </nav>
 </head>
 <body>
-<!--  <nav>-->
-<!--    <input type="checkbox" id="check" />-->
-<!--    <label for="check" class="checkbtn">-->
-<!--      <i class="fas fa-bars"></i>-->
-<!--    </label>-->
-<!--    <label class="logo">BigLogo</label>-->
-<!--    <ul>-->
-<!--      <li><a th:href="@{/}">Acasă</a></li>-->
-<!--      <li><a href="#">Anunțuri</a></li>-->
-<!--      <li th:if="${session.userRole eq 'STUDENT'}"><a class="active" th:href="@{/form}">Înscriere cazare</a></li>-->
-<!--      <li th:if="${session.userRole eq 'ADMIN'}">-->
-<!--        <a class="active" th:href="@{admin/manage}">-->
-<!--          Lista studenti-->
-<!--        </a>-->
-<!--      </li>-->
-<!--      <li th:unless="${session.loggedInUser}"><a class="active" th:href="@{/form}">Înscriere cazare</a></li>-->
-<!--      <li><a href="#">Spații de cazare</a></li>-->
-<!--      <li th:if="${session.loggedInUser}">-->
-<!--        <a th:href="@{/logout}" data-confirm="Are you sure you want to log out?">Logout</a>-->
-<!--      </li>-->
-<!--      <li th:unless="${session.loggedInUser}">-->
-<!--        <a th:href="@{/login}">Login</a>-->
-<!--      </li>-->
-<!--      <li><a href="#">Contacte</a></li>-->
-<!--    </ul>-->
-<!--  </nav>-->
 
     <div th:if="${session.loggedInUser}">
       <div th:if="${session.userRole eq 'STUDENT'}">
@@ -85,6 +59,8 @@
               <option value="male">Masculin</option>
               <option value="female">Feminin</option>
             </select>
+            <label for="score">Score:</label>
+            <input type="text" id="score" name="score" required>
             <label for="option1">Exprimare optiunea 1:</label>
             <select id="option1" name="option1" required>
               <option value="C1">C1</option>
@@ -133,6 +109,7 @@
                 <th>Prenume</th>
                 <th class="email-column">Email</th>
                 <th>Anul Studiilor</th>
+                <th>Score</th>
                 <th>Preferința 1</th>
                 <th>Preferința 2</th>
                 <th>Preferința 3</th>
@@ -145,6 +122,7 @@
                 <td th:text="${student.firstName}"></td>
                 <td class="email-column" th:text="${student.email}"></td>
                 <td th:text="${student.year}"></td>
+                <td th:text="${student.score}"></td>
                 <td th:text="${student.preference1}"></td>
                 <td th:text="${student.preference2}"></td>
                 <td th:text="${student.preference3}"></td>
@@ -157,6 +135,11 @@
               </tr>
             </table>
 
+          </div>
+          <div>
+            <form th:action="@{/admin/manage}" method="post">
+              <button type="submit">FindAccommodation</button>
+            </form>
           </div>
 <!--          <form th:action="@{/export-csv}" method="get">-->
 <!--            <button class="csv-btn" type="submit"></button>-->

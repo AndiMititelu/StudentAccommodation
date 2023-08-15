@@ -29,6 +29,8 @@ public class AdminController {
     StudentService studentService;
     @Autowired
     StudentRepository studentRepository;
+    @Autowired
+    AccommodationService accommodationService;
 //    @Autowired
 //    AccommodationRepository accommodationRepository;
 
@@ -45,15 +47,6 @@ public class AdminController {
 
     }
 
-//    @GetMapping("/form")
-//    public String redirectToManage(HttpSession session) {
-//        String userRole = (String) session.getAttribute("userRole");
-//        if(Objects.equals(userRole, "ADMIN")) {
-//            return "redirect:/admin/manage";
-//        }
-//        else
-//            return "redirect:/";
-//    }
 
     @PostMapping("/delete-student/{id}")
     public String deleteStudent(@PathVariable UUID id) {
@@ -70,8 +63,8 @@ public class AdminController {
 
         ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.EXCEL_PREFERENCE);
         //The column for the CSV file
-        String[] csvHeader = {"Nr Matricol","Nume", "Prenume", "Email", "Anul Studiilor", "Pref 1", "Pref 2", "Pref 3", "Pref 4"};
-        String[] nameMapping = {"nrMatricol","lastName", "firstName", "email", "year", "preference1", "preference2", "preference3", "preference4"};
+        String[] csvHeader = {"Nr Matricol","Nume", "Prenume", "Email", "Anul Studiilor", "Score",  "Pref 1", "Pref 2", "Pref 3", "Pref 4"};
+        String[] nameMapping = {"nrMatricol","lastName", "firstName", "email", "year", "score", "preference1", "preference2", "preference3", "preference4"};
         csvBeanWriter.writeHeader(csvHeader);
 
         for(Student student : students) {
@@ -80,5 +73,11 @@ public class AdminController {
 
         csvBeanWriter.close();
 
+    }
+
+    @PostMapping("admin/manage")
+    public String findAccommodation() {
+        accommodationService.findBestAccommodation();
+        return "redirect:/form";
     }
 }

@@ -1,5 +1,6 @@
 package com.project.studentAccommodation.service;
 
+import com.project.studentAccommodation.models.Role;
 import com.project.studentAccommodation.models.Student;
 import com.project.studentAccommodation.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +28,14 @@ public class StudentService {
             return null; // Registration failed, student with email already exists
         }
         Student student = new Student(nrMatricol, email, passwordEncoder.encode(password));
-
+        student.setRole(Role.STUDENT);
         return studentRepository.save(student);
     }
 
     public void updateStudent(Student student) {
         Student foundStudent = studentRepository.findByNrMatricol(student.getNrMatricol());
         if(foundStudent != null){
-            foundStudent.setPreference1(student.getPreference1());
-            foundStudent.setPreference2(student.getPreference2());
-            foundStudent.setPreference3(student.getPreference3());
-            foundStudent.setPreference4(student.getPreference4());
-            foundStudent.setYear(student.getYear());
-            foundStudent.setFirstName(student.getFirstName());
-            foundStudent.setLastName(student.getLastName());
-            foundStudent.setGender(student.getGender());
+
             studentRepository.save(foundStudent);
         }
     }
