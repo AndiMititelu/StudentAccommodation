@@ -35,9 +35,9 @@ public class AccommodationService {
         for(Accommodation accommodation : accommodationRepository.findAll()) {
             if(Objects.equals(accommodation.getName(), preferenceName)) {
                 //TODO: verificare gender inainte
-                if(accommodation.getCapacity() > 0) {
+                if(accommodation.getCapacityLeft() > 0) {
                     //lower capacity for that accommodation
-                    accommodation.setCapacity(accommodation.getCapacity() - 1);
+                    accommodation.setCapacityLeft(accommodation.getCapacityLeft() - 1);
                     return true;
                 }
                 else

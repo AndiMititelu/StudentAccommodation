@@ -34,6 +34,7 @@ public class StudentService {
 
     public void updateStudent(Student student) {
         Student foundStudent = studentRepository.findByNrMatricol(student.getNrMatricol());
+        System.out.println(student.getNrMatricol());
         if(foundStudent != null){
 
             studentRepository.save(foundStudent);

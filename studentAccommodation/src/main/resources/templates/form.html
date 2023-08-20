@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" th:href="@{/form.css}" />
+  <link rel="stylesheet" th:href="@{/navbar.css}" />
   <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -17,7 +18,7 @@
     <label class="logo">BigLogo</label>
     <ul>
       <li><a th:href="@{/}">Acasă</a></li>
-      <li><a href="#">Anunțuri</a></li>
+      <li><a th:href="@{/news}">Anunțuri</a></li>
       <li th:if="${session.userRole eq 'STUDENT'}"><a class="active" th:href="@{/form}">Înscriere cazare</a></li>
       <li th:if="${session.userRole eq 'ADMIN'}">
         <a class="active" th:href="@{admin/manage}">
@@ -60,7 +61,7 @@
               <option value="female">Feminin</option>
             </select>
             <label for="score">Score:</label>
-            <input type="text" id="score" name="score" required>
+            <input type="number" id="score" name="score" required>
             <label for="option1">Exprimare optiunea 1:</label>
             <select id="option1" name="option1" required>
               <option value="C1">C1</option>
@@ -104,6 +105,7 @@
             </form>
             <table>
               <tr>
+                <th>Acțiuni</th>
                 <th>Nr. matricol</th>
                 <th>Nume</th>
                 <th>Prenume</th>
@@ -114,9 +116,16 @@
                 <th>Preferința 2</th>
                 <th>Preferința 3</th>
                 <th>Preferința 4</th>
-                <th>Acțiuni</th>
+                <th>Cămin repartizat</th>
+                <th>Cămin confirmat</th>
+
               </tr>
               <tr th:each="student : ${students}">
+                <td>
+                  <form th:action="@{/delete-student/{id}(id=${student.id})}" method="post" onsubmit="return confirm('Are you sure you want to delete this student?')">
+                    <button class="delete-btn" data-id="${student.id}" type="submit">Șterge</button>
+                  </form>
+                </td>
                 <td th:text="${student.nrMatricol}"></td>
                 <td th:text="${student.lastName}"></td>
                 <td th:text="${student.firstName}"></td>
@@ -127,11 +136,8 @@
                 <td th:text="${student.preference2}"></td>
                 <td th:text="${student.preference3}"></td>
                 <td th:text="${student.preference4}"></td>
-                <td>
-                  <form th:action="@{/delete-student/{id}(id=${student.id})}" method="post" onsubmit="return confirm('Are you sure you want to delete this student?')">
-                    <button class="delete-btn" data-id="${student.id}" type="submit">Șterge</button>
-                  </form>
-                </td>
+                <td th:text="${student.assignedAccommodation}"></td>
+                <td th:text="${student.confirmedAccommodation}"></td>
               </tr>
             </table>
 

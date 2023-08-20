@@ -50,6 +50,7 @@ public class AccommodationController {
     public String sendForm(HttpSession session, RedirectAttributes redirectAttributes, @RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestParam("year") Integer year, @RequestParam("gender") String gender, @RequestParam("score") Integer score ,@RequestParam("option1") String option1, @RequestParam("option2") String option2, @RequestParam("option3") String option3, @RequestParam("option4") String option4) {
         Student loggedStudent = (Student) session.getAttribute("loggedInUser");
         if(loggedStudent != null) {
+            System.out.println("AM GASIT!");
             loggedStudent.setFirstName(firstName);
             loggedStudent.setLastName(lastName);
             loggedStudent.setYear(year);
@@ -71,7 +72,8 @@ public class AccommodationController {
                 loggedStudent.setPreference4(option4);
 
             //Update loggedStudent in the DB
-            studentService.updateStudent(loggedStudent);
+            //studentService.updateStudent(loggedStudent);
+            studentRepository.save(loggedStudent);
             //accommodationService.findBestAccommodation();
             return "redirect:/";
         }
