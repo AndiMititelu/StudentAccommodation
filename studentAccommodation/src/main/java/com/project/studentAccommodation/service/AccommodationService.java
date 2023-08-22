@@ -11,13 +11,14 @@ import java.util.*;
 
 @Service
 public class AccommodationService {
-//    @Autowired
-//    StudentRepository studentRepository;
+    @Autowired
+    StudentRepository studentRepository;
     @Autowired
     AccommodationRepository accommodationRepository;
     @Autowired
     StudentService studentService;
     public void findBestAccommodation() {
+        nextTour();
         List<Student> students = studentService.getStudentsAfterScore();
         for(Student student : students) {
             if(studentService.isAssigned(student) == false) {
@@ -35,9 +36,9 @@ public class AccommodationService {
         for(Accommodation accommodation : accommodationRepository.findAll()) {
             if(Objects.equals(accommodation.getName(), preferenceName)) {
                 //TODO: verificare gender inainte
-                if(accommodation.getCapacityLeft() > 0) {
+                if(accommodation.getEstimatedCapacityLeft() > 0) {
                     //lower capacity for that accommodation
-                    accommodation.setCapacityLeft(accommodation.getCapacityLeft() - 1);
+                    accommodation.setEstimatedCapacityLeft(accommodation.getEstimatedCapacityLeft() - 1);
                     return true;
                 }
                 else
@@ -51,6 +52,20 @@ public class AccommodationService {
     void updateAccommodationForStudent(Student student, String accommodationName) {
         student.setAssignedAccommodation(accommodationRepository.findByName(accommodationName).getName());
         studentService.updateStudent(student);
+    }
+
+    void nextTour() {
+        List<Student> students = studentRepository.findAll();
+        List<Accommodation> accommodations = accommodationRepository.findAll();
+        for(Student student : students) {
+            if(!Objects.equals(student.getAssignedAccommodation(), student.getPreference1())) {
+                student.setAssignedAccommodation(null);
+                student.setConfirmedAccommodation(null);
+            }
+        }
+        for(Accommodation accommodation : accommodations) {
+            accommodation.setEstimatedCapacityLeft(accommodation.getCapacityLeft());
+        }
     }
 
 }

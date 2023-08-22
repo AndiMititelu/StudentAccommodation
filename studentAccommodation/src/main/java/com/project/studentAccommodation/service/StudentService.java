@@ -56,6 +56,20 @@ public class StudentService {
         });
         return students;
     }
+    public void acceptStudent(UUID uuid) {
+        Student student = studentRepository.findById(uuid).orElse(null);
+        if(student != null) {
+            student.setConfirmedAccommodation(true);
+            studentRepository.save(student);
+        }
+    }
+    public void rejectStudent(UUID uuid) {
+        Student student = studentRepository.findById(uuid).orElse(null);
+        if(student != null) {
+            student.setConfirmedAccommodation(false);
+            studentRepository.save(student);
+        }
+    }
 
     public boolean isAssigned(Student student) {
         return student.getAssignedAccommodation() != null;

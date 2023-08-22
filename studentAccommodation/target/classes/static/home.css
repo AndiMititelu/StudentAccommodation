@@ -1,63 +1,216 @@
-/* Style for the news section */
+/* Basic styling for the news page
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+  color: #333;
+}
+
 .news-section {
-    margin: 50px auto;
-    width: 80%;
-    max-width: 1200px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Style for each news post */
-.news-post {
-    border-bottom: 1px solid #ccc;
-    padding: 20px 0;
-    display: flex;
-    align-items: flex-start;
+ul {
+  list-style: none;
+  padding: 0;
 }
 
-.news-post:last-child {
-    border-bottom: none;
+li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
 }
 
-.news-post-content {
-    flex: 1;
-    margin-left: 20px;
+.title {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
-.news-post h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #1f1951;
+.content {
+  color: #666;
+}
+*/
+
+/*--------------------------------------- Basic styling for the news page ----------------------------------------
+body {
+
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
 }
 
-.news-post p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #666;
-    margin-bottom: 15px;
+h2 {
+  text-align: center;
+  margin: 20px 0;
+  padding: 0 10px;
+  color: #333;
+      font-family: 'Gill Sans', 'Gill Sans MT';
+      font-weight: bold;
 }
 
-.news-post a {
-    color: #007bff;
-    text-decoration: none;
+.news-section {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.news-post a:hover {
-    text-decoration: underline;
+ul {
+  list-style: none;
+  padding: 0;
 }
 
-/* Add background color and more spacing for better separation */
-.news-post:nth-child(even) {
-    background-color: #f7f7f7;
+li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
 }
 
-/* Responsive adjustments */
+.title {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+      font-family: 'Gill Sans', 'Gill Sans MT' !important;;
+      font-weight: bold !important;;
+}
+
+.content {
+  color: #666;
+    font-family: 'Georgia', serif !important;;
+    font-weight: normal !important;;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+*/
+
+
+/* Basic styling for the news page */
+/* Basic styling for the news page */
+/* Basic styling for the news page */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+
+h2 {
+  text-align: center !important;;
+  margin: 20px 0; /* Adjust margin for better centering */
+  color: #333;
+}
+
+.news-section {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+
+.title {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.content {
+  color: #666;
+}
+
+a {
+  text-decoration: none;
+  background: none;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Mobile Styles */
 @media (max-width: 768px) {
-    .news-post {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+  h2 {
+    font-size: 20px; /* Adjust font size for better visibility */
+  }
 
-    .news-post-content {
-        margin: 15px 0;
-    }
+  .news-section {
+    padding: 10px;
+    max-width: 550px;
+  }
+
+  .title {
+    font-size: 18px; /* Reduce title font size for mobile */
+    margin-bottom: 5px; /* Adjust margin for mobile */
+  }
+
+  .content {
+    font-size: 14px; /* Reduce content font size for mobile */
+  }
+
+  .delete-btn {
+    padding: 3px 6px;
+    font-size: 12px;
+  }
 }
+
+
+

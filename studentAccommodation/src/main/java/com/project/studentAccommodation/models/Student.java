@@ -16,13 +16,6 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class Student extends User {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    protected UUID id;
-//    @Column(name = "first_name")
-//    protected String firstName;
-//    @Column(name = "last_name")
-//    protected String lastName;
     @Column(name = "nr_matricol", unique = true)
     protected String nrMatricol;
 //    @Column(name = "email", unique = true, nullable = false)
@@ -52,7 +45,7 @@ public class Student extends User {
     protected String assignedAccommodation;
     //    @ManyToOne
 //    @JoinColumn(name = "confirmed_accommodation_id")
-    protected String confirmedAccommodation;
+    protected Boolean confirmedAccommodation;
 
     public Student(String nrMatricol, String email, String password) {
         this.nrMatricol = nrMatricol;

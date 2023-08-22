@@ -38,26 +38,9 @@ public class FileStorageService {
         }
     }
 
-    public String getContentType(String fileName) {
-        // Get the file extension.
-        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-
-        // Map file extensions to MIME types.
-        Map<String, String> mimeTypes = new HashMap<>();
-        mimeTypes.put("pdf", "application/pdf");
-        mimeTypes.put("doc", "application/msword");
-        mimeTypes.put("xls", "application/vnd.ms-excel");
-        mimeTypes.put("txt", "text/plain");
-
-        // Get the MIME type for the file extension.
-        String contentType = mimeTypes.get(extension);
-
-        // If the MIME type is not found, return a default value.
-        if (contentType == null) {
-            contentType = "application/octet-stream";
-        }
-
-        return contentType;
+    public void deleteFile(String fileName) throws IOException {
+        Path filePath = Paths.get(storageLocation).resolve(fileName);
+        Files.deleteIfExists(filePath);
     }
 
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -58,15 +59,37 @@ public class HomeController {
                 .body(resource);
     }
 
-//    @GetMapping("/download/{fileName}")
-//    public void downloadFile2(@PathVariable String fileName, HttpServletResponse response) throws IOException {
-//        Resource file = fileStorageService.loadFile(fileName);
-//
-//        response.setContentType(file.getTy  );
-//        response.setContentLength((int) file.length());
-//        response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
-//
-//        Files.copy(file.toPath(), response.getOutputStream());
-//    }
+    @GetMapping("/edit-news/{postId}")
+    public String showEditNewsPage(@PathVariable Long postId, HttpServletRequest request, Model model) {
+        String userRole = (String) request.getSession().getAttribute("userRole");
+        if (!"ADMIN".equals(userRole)) {
+            return "redirect:/"; // Redirect to news homepage if not an admin
+        }
+
+        NewsPost newsPost = newsPostRepository.findById(postId).orElse(null);
+        if (newsPost != null) {
+            model.addAttribute("newsPost", newsPost);
+            return "edit-news";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @GetMapping("/delete-news/{postId}")
+    public String deleteNews(@PathVariable Long postId, HttpServletRequest request) throws IOException {
+        String userRole = (String) request.getSession().getAttribute("userRole");
+        if ("ADMIN".equals(userRole)) {
+            // Delete the news post by postId from the database
+            Optional<NewsPost> newsPostOptional = newsPostRepository.findById(postId);
+            NewsPost newsPost = newsPostOptional.orElse(null);
+            if(newsPost != null) {
+                newsPostRepository.deleteById(postId);
+                fileStorageService.deleteFile(newsPost.getFileName());
+                return "redirect:/";
+            }
+            return "redirect:/news";
+        }
+        return "redirect:/news";
+    }
 
 }

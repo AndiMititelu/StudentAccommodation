@@ -1,6 +1,10 @@
 
 
 /* --------------------------------------------------------------------------------- */
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT';
+    font-weight: bold;
+}
 
 .main {
   width: 50%;
@@ -29,6 +33,11 @@ h2 {
   margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.content {
+  font-family: 'Georgia', serif !important;;
+  font-weight: normal !important;;
 }
 
 .btn {

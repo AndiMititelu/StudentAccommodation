@@ -26,6 +26,8 @@ public class Accommodation {
     protected Integer capacity;
     @Column(name = "capacity_left")
     protected Integer capacityLeft;
+    @Column(name = "estimated_capacity_left")
+    protected Integer estimatedCapacityLeft;
     @Column(name = "preference1_students") //Studenti - nr matricol
 //    @OneToMany(mappedBy = "preference1", cascade = CascadeType.ALL, orphanRemoval = true)
     protected List<String> preference1Students;

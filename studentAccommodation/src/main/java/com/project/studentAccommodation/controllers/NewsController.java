@@ -40,6 +40,17 @@ public class NewsController {
         return "redirect:/news"; //
     }
 
-
+    @PostMapping("/update-news")
+    public ResponseEntity<String> updateNews(@RequestParam Long postId, @RequestParam String title, @RequestParam String content) {
+        NewsPost newsPost = newsPostRepository.findById(postId).orElse(null);
+        if (newsPost != null) {
+            newsPost.setTitle(title);
+            newsPost.setContent(content);
+            newsPostRepository.save(newsPost);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }

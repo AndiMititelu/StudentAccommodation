@@ -21,7 +21,7 @@
       <li><a th:href="@{/news}">Anunțuri</a></li>
       <li th:if="${session.userRole eq 'STUDENT'}"><a class="active" th:href="@{/form}">Înscriere cazare</a></li>
       <li th:if="${session.userRole eq 'ADMIN'}">
-        <a class="active" th:href="@{admin/manage}">
+        <a class="active" th:href="@{/admin/manage}">
           Lista studenti
         </a>
       </li>
@@ -42,7 +42,7 @@
     <div th:if="${session.loggedInUser}">
       <div th:if="${session.userRole eq 'STUDENT'}">
         <section>
-          <h2>Înscriere cazare</h2>
+          <h2>Formular cazare</h2>
           <form th:action="@{/form}" method="post">
             <!-- Add your waitlist form fields here -->
             <label for="firstName">First name:</label>
@@ -91,7 +91,7 @@
               <option value="Akademos">Akademos</option>
             </select>
             <!-- Add more fields as needed -->
-            <button type="submit">Trimite</button>
+            <button class="submit-btn" type="submit">Trimite</button>
           </form>
         </section>
 
@@ -123,7 +123,7 @@
               <tr th:each="student : ${students}">
                 <td>
                   <form th:action="@{/delete-student/{id}(id=${student.id})}" method="post" onsubmit="return confirm('Are you sure you want to delete this student?')">
-                    <button class="delete-btn" data-id="${student.id}" type="submit">Șterge</button>
+                    <button class="reject-btn" data-id="${student.id}" type="submit">Șterge</button>
                   </form>
                 </td>
                 <td th:text="${student.nrMatricol}"></td>
@@ -137,14 +137,31 @@
                 <td th:text="${student.preference3}"></td>
                 <td th:text="${student.preference4}"></td>
                 <td th:text="${student.assignedAccommodation}"></td>
-                <td th:text="${student.confirmedAccommodation}"></td>
+                <td>
+                  <span th:if="${student.confirmedAccommodation}">
+                    Confirmat
+                  </span>
+                  <span th:if="${student.confirmedAccommodation eq false}">
+                    Neconfirmat
+                  </span>
+                  <span th:unless="${student.confirmedAccommodation != null}">
+                    <form th:action="@{/admin/accept-student}" method="post">
+                      <input type="hidden" th:name="studentId" th:value="${student.id}" />
+                      <button class="accept-btn" type="submit" th:name="accepted" th:value="true">Confirmat</button>
+                    </form>
+                    <form th:action="@{/admin/reject-student}" method="post">
+                      <input type="hidden" th:name="studentId" th:value="${student.id}" />
+                      <button class="reject-btn" type="submit" th:name="accepted" th:value="false">Reject</button>
+                    </form>
+                  </span>
+                </td>
               </tr>
             </table>
 
           </div>
           <div>
             <form th:action="@{/admin/manage}" method="post">
-              <button type="submit">FindAccommodation</button>
+              <button class="submit-btn" type="submit">FindAccommodation</button>
             </form>
           </div>
 <!--          <form th:action="@{/export-csv}" method="get">-->
@@ -159,26 +176,23 @@
       </div>
     </section>
 
-  <script th:src="@{/script.js}" type="text/javascript"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--  <script th:inline="javascript">-->
-<!--    $(document).ready(function() {-->
-<!--        $(".delete-btn").on("click", function() {-->
-<!--            var studentId = $(this).data("id");-->
+    <script th:src="@{/script.js}" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("select").change(function() {
+          // Get all selected options
+          var selectedOptions = $("select option:selected");
 
-<!--            $.ajax({-->
-<!--                url: "/delete-student/" + studentId,-->
-<!--                type: "POST",-->
-<!--                success: function() {-->
-<!--                    // Remove the deleted row from the table-->
-<!--                    $("tr[data-id='" + studentId + "']").remove();-->
-<!--                },-->
-<!--                error: function() {-->
-<!--                    alert("Error deleting student.");-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-<!--    });-->
-<!--  </script>-->
-</body>
+          // Enable all options
+          $("select option").prop("disabled", false);
+
+          // Disable selected options
+          selectedOptions.each(function() {
+            $("select option[value='" + $(this).val() + "']").not(this).prop("disabled", true);
+          });
+        });
+      });
+    </script>
+  </body>
 </html>

@@ -1,5 +1,9 @@
 
-/* Section pentru studenti */
+/* ------------------------- Section pentru studenti -------------------------------- */
+body {
+    background: #fafafa;
+}
+
 section {
   margin: 50px auto;
   width: 80%;
@@ -13,6 +17,7 @@ section {
 section h2 {
   font-size: 24px;
   margin-bottom: 20px;
+  text-color: #421182;
 }
 
 section form {
@@ -23,26 +28,45 @@ section form {
 section label {
   font-size: 16px;
   text-align: left;
+  font-family: 'Gill Sans', 'Gill Sans MT';
+  font-weight: bold;
 }
 
 section input[type="text"] {
-  padding: 10px;
-  margin-bottom: 15px;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-section button {
-  background: #1f1951;
+section input[type="number"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #421182;
   color: white;
-  padding: 10px;
+  padding: 14px 20px;
+  margin: 8px 0;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  font-family: 'Gill Sans', 'Gill Sans MT';
+  font-weight: bold;
 }
 
-section button:hover {
-  background: #4e5ed3;
+.submit-btn:hover {
+  background: #6731ad;
 }
 
 @media (max-width: 400px) {
@@ -62,15 +86,13 @@ section select {
 }
 
 section select {
-  /* Additional styles for the "Gender" dropdown */
-  appearance: none; /* Remove default arrow on some browsers */
+  /*appearance: none;  Remove default arrow on some browsers */
   background-color: #fff;
   background-repeat: no-repeat;
   background-position: right 10px center;
   padding-right: 30px; /* Adjust based on the icon width */
 }
 
-/* Add the following CSS rules to your existing CSS file */
 
 /* Style for the student list container */
 .student-list-container {
@@ -79,7 +101,7 @@ section select {
 }
 
 
-/* Section pentru Admini */
+/* ----------------------------------- Section pentru Admini ------------------------------- */
 #admin-section {
     margin: 50px auto;
     width: 80%;
@@ -114,12 +136,17 @@ section select {
 }
 
 /* Style for delete button */
-.delete-button {
-    background-color: #dc3545;
+.delete-btn {
+    background-color: #e74c3c !important;;
     color: white;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
 }
 
 /* Export CSV button */
@@ -179,6 +206,33 @@ section select {
     }
 }
 
+.accept-btn {
+  background-color: #28a745; /* Green color for accept button */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.accept-btn:hover {
+  background-color: #218838; /* Darker green color on hover */
+}
+
+.reject-btn {
+  background-color: #dc3545; /* Red color for reject button */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reject-btn:hover {
+  background-color: #c82333; /* Darker red color on hover */
+}
 
 /*
 .email-column {

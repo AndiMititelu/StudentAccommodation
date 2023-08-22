@@ -1,5 +1,6 @@
 package com.project.studentAccommodation.controllers;
 
+import com.project.studentAccommodation.models.Accommodation;
 import com.project.studentAccommodation.models.Student;
 import com.project.studentAccommodation.repositories.AccommodationRepository;
 import com.project.studentAccommodation.repositories.StudentRepository;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
@@ -31,8 +33,8 @@ public class AdminController {
     StudentRepository studentRepository;
     @Autowired
     AccommodationService accommodationService;
-//    @Autowired
-//    AccommodationRepository accommodationRepository;
+    @Autowired
+    AccommodationRepository accommodationRepository;
 
     @GetMapping("admin/manage")
     public String showStudentList(Model model, HttpSession session) {
@@ -46,7 +48,11 @@ public class AdminController {
         return "form";
 
     }
-
+    @PostMapping("admin/manage")
+    public String findAccommodation() {
+        accommodationService.findBestAccommodation();
+        return "redirect:/form";
+    }
 
     @PostMapping("/delete-student/{id}")
     public String deleteStudent(@PathVariable UUID id) {
@@ -74,10 +80,19 @@ public class AdminController {
         csvBeanWriter.close();
 
     }
-
-    @PostMapping("admin/manage")
-    public String findAccommodation() {
-        accommodationService.findBestAccommodation();
-        return "redirect:/form";
+    @PostMapping("/admin/accept-student")
+    public String acceptStudent(@RequestParam("studentId") UUID studentId) {
+        Student student = studentRepository.findById(studentId).orElse(null);
+        Accommodation accommodation = accommodationRepository.findByName(student.getAssignedAccommodation());
+        accommodation.setCapacityLeft(accommodation.getCapacityLeft() - 1);
+        studentService.acceptStudent(studentId);
+        return "redirect:/admin/manage"; // Redirect back to the student list
     }
+
+    @PostMapping("/admin/reject-student")
+    public String rejectStudent(@RequestParam("studentId") UUID studentId) {
+        studentService.deleteStudentById(studentId);
+        return "redirect:/admin/manage"; // Redirect back to the student list
+    }
+
 }

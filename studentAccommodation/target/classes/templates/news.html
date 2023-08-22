@@ -21,7 +21,12 @@
       <li><a class="active" th:href="@{/news}">Anunțuri</a></li>
       <li><a th:href="@{/form}">Înscriere cazare</a></li>
       <li><a href="#">Spații de cazare</a></li>
-      <li><a th:href="@{/login}">Logare</a></li>
+      <li th:if="${session.loggedInUser}">
+        <a th:href="@{/logout}" data-confirm="Are you sure you want to log out?">Logout</a>
+      </li>
+      <li th:unless="${session.loggedInUser}">
+        <a th:href="@{/login}">Login</a>
+      </li>
       <li><a href="#">Contacte</a></li>
     </ul>
   </nav>
