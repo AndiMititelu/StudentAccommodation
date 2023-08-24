@@ -137,7 +137,7 @@ section select {
 
 /* Style for delete button */
 .delete-btn {
-    background-color: #e74c3c !important;;
+    background-color: #e74c3c;
     color: white;
     border: none;
     padding: 5px 10px;

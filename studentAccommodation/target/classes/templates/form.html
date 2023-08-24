@@ -18,7 +18,9 @@
     <label class="logo">BigLogo</label>
     <ul>
       <li><a th:href="@{/}">Acasă</a></li>
-      <li><a th:href="@{/news}">Anunțuri</a></li>
+      <li th:if="${session.userRole eq 'ADMIN'}">
+        <a th:href="@{/news}">Anunțuri</a>
+      </li>
       <li th:if="${session.userRole eq 'STUDENT'}"><a class="active" th:href="@{/form}">Înscriere cazare</a></li>
       <li th:if="${session.userRole eq 'ADMIN'}">
         <a class="active" th:href="@{/admin/manage}">
@@ -26,14 +28,12 @@
         </a>
       </li>
       <li th:unless="${session.loggedInUser}"><a class="active" th:href="@{/form}">Înscriere cazare</a></li>
-      <li><a href="#">Spații de cazare</a></li>
       <li th:if="${session.loggedInUser}">
         <a th:href="@{/logout}" data-confirm="Are you sure you want to log out?">Logout</a>
       </li>
       <li th:unless="${session.loggedInUser}">
         <a th:href="@{/login}">Login</a>
       </li>
-      <li><a href="#">Contacte</a></li>
     </ul>
   </nav>
 </head>
@@ -41,61 +41,68 @@
 
     <div th:if="${session.loggedInUser}">
       <div th:if="${session.userRole eq 'STUDENT'}">
-        <section>
-          <h2>Formular cazare</h2>
-          <form th:action="@{/form}" method="post">
-            <!-- Add your waitlist form fields here -->
-            <label for="firstName">First name:</label>
-            <input type="text" id="firstName" name="firstName" required>
-            <label for="lastName">Last name:</label>
-            <input type="text" id="lastName" name="lastName" required>
-            <label for="year">Anul de studii:</label>
-            <select id="year" name="year" required>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-            <label for="gender">Gen:</label>
-            <select id="gender" name="gender" required>
-              <option value="male">Masculin</option>
-              <option value="female">Feminin</option>
-            </select>
-            <label for="score">Score:</label>
-            <input type="number" id="score" name="score" required>
-            <label for="option1">Exprimare optiunea 1:</label>
-            <select id="option1" name="option1" required>
-              <option value="C1">C1</option>
-              <option value="C2">C2</option>
-              <option value="C3">C3</option>
-              <option value="Akademos">Akademos</option>
-            </select>
-            <label for="option2">Exprimare optiunea 2:</label>
-            <select id="option2" name="option2" required>
-              <option value="C1">C1</option>
-              <option value="C2">C2</option>
-              <option value="C3">C3</option>
-              <option value="Akademos">Akademos</option>
-            </select>
-            <label for="option3">Exprimare optiunea 3:</label>
-            <select id="option3" name="option3" required>
-              <option value="C1">C1</option>
-              <option value="C2">C2</option>
-              <option value="C3">C3</option>
-              <option value="Akademos">Akademos</option>
-            </select>
-            <label for="option4">Exprimare optiunea 4:</label>
-            <select id="option4" name="option4" required>
-              <option value="C1">C1</option>
-              <option value="C2">C2</option>
-              <option value="C3">C3</option>
-              <option value="Akademos">Akademos</option>
-            </select>
-            <!-- Add more fields as needed -->
-            <button class="submit-btn" type="submit">Trimite</button>
-          </form>
-        </section>
-
+        <div th:if="${session.loggedInUser.submittedForm}">
+          <section>
+            <p>Formularul a fost trimis!</p>
+          </section>
+        </div>
+        <div th:unless="${session.loggedInUser.submittedForm}">
+          <section>
+            <h2>Formular cazare</h2>
+            <form th:action="@{/form}" method="post">
+              <!-- Add your waitlist form fields here -->
+              <label for="firstName">First name:</label>
+              <input type="text" id="firstName" name="firstName" required>
+              <label for="lastName">Last name:</label>
+              <input type="text" id="lastName" name="lastName" required>
+              <label for="year">Anul de studii:</label>
+              <select id="year" name="year" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <label for="gender">Gen:</label>
+              <select id="gender" name="gender" required>
+                <option value="male">Masculin</option>
+                <option value="female">Feminin</option>
+              </select>
+              <label for="score">Score:</label>
+              <input type="number" id="score" name="score" required>
+              <label for="option1">Exprimare optiunea 1:</label>
+              <select id="option1" name="option1" required>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+                <option value="C3">C3</option>
+                <option value="Akademos">Akademos</option>
+              </select>
+              <label for="option2">Exprimare optiunea 2:</label>
+              <select id="option2" name="option2" required>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+                <option value="C3">C3</option>
+                <option value="Akademos">Akademos</option>
+              </select>
+              <label for="option3">Exprimare optiunea 3:</label>
+              <select id="option3" name="option3" required>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+                <option value="C3">C3</option>
+                <option value="Akademos">Akademos</option>
+              </select>
+              <label for="option4">Exprimare optiunea 4:</label>
+              <select id="option4" name="option4" required>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+                <option value="C3">C3</option>
+                <option value="Akademos">Akademos</option>
+              </select>
+              <!-- Add more fields as needed -->
+              <button class="submit-btn" type="submit">Trimite</button>
+            </form>
+          </section>
+        </div>
       </div>
+
       <div th:if="${session.userRole eq 'ADMIN'}">
         <section id="admin-section">
           <h2>Lista studenti înscriși</h2>
@@ -111,7 +118,7 @@
                 <th>Prenume</th>
                 <th class="email-column">Email</th>
                 <th>Anul Studiilor</th>
-                <th>Score</th>
+                <th>Punctaj</th>
                 <th>Preferința 1</th>
                 <th>Preferința 2</th>
                 <th>Preferința 3</th>
@@ -151,7 +158,7 @@
                     </form>
                     <form th:action="@{/admin/reject-student}" method="post">
                       <input type="hidden" th:name="studentId" th:value="${student.id}" />
-                      <button class="reject-btn" type="submit" th:name="accepted" th:value="false">Reject</button>
+                      <button class="reject-btn" type="submit" th:name="accepted" th:value="false">Neconfirmat</button>
                     </form>
                   </span>
                 </td>
@@ -161,7 +168,7 @@
           </div>
           <div>
             <form th:action="@{/admin/manage}" method="post">
-              <button class="submit-btn" type="submit">FindAccommodation</button>
+              <button class="submit-btn" type="submit">Repartizare</button>
             </form>
           </div>
 <!--          <form th:action="@{/export-csv}" method="get">-->
@@ -170,11 +177,11 @@
         </section>
       </div>
     </div>
-    <section>
-      <div th:unless="${session.loggedInUser}">
-        <p>Please <a th:href="@{/login}">log in</a> to access the waitlist.</p>
-      </div>
-    </section>
+    <div th:unless="${session.loggedInUser}">
+      <section>
+        <p>Te rog <a th:href="@{/login}">loghează-te</a> pentru a accesa formularul de înscriere.</p>
+      </section>
+    </div>
 
     <script th:src="@{/script.js}" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

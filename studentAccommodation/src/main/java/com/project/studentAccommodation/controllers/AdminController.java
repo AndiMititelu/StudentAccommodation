@@ -69,8 +69,8 @@ public class AdminController {
 
         ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.EXCEL_PREFERENCE);
         //The column for the CSV file
-        String[] csvHeader = {"Nr Matricol","Nume", "Prenume", "Email", "Anul Studiilor", "Score",  "Pref 1", "Pref 2", "Pref 3", "Pref 4"};
-        String[] nameMapping = {"nrMatricol","lastName", "firstName", "email", "year", "score", "preference1", "preference2", "preference3", "preference4"};
+        String[] csvHeader = {"Nr Matricol","Nume", "Prenume", "Email", "An", "Punctaj",  "Pref 1", "Pref 2", "Pref 3", "Pref 4", "Cămin repartizat"};
+        String[] nameMapping = {"nrMatricol","lastName", "firstName", "email", "year", "score", "preference1", "preference2", "preference3", "preference4", "assignedAccommodation"};
         csvBeanWriter.writeHeader(csvHeader);
 
         for(Student student : students) {

@@ -21,8 +21,9 @@
       <label class="logo">BigLogo</label>
       <ul class="navigation">
         <li><a class="active" th:href="@{/}">Acasă</a></li>
-        <li><a th:href="@{/news}">Anunțuri</a></li>
-
+        <li th:if="${session.userRole eq 'ADMIN'}">
+          <a th:href="@{/news}">Anunțuri</a>
+        </li>
         <li th:if="${session.userRole eq 'STUDENT'}">
           <a th:href="@{/form}">Înscriere cazare</a>
         </li>
@@ -30,16 +31,12 @@
           <a th:href="@{/admin/manage}">Lista studenți</a>
         </li>
         <li th:unless="${session.loggedInUser}"><a th:href="@{/form}">Înscriere cazare</a></li>
-
-
-        <li><a href="#">Spații de cazare</a></li>
         <li th:if="${session.loggedInUser}">
           <a th:href="@{/logout}" data-confirm="Are you sure you want to log out?">Logout</a>
         </li>
         <li th:unless="${session.loggedInUser}">
           <a th:href="@{/login}">Login</a>
         </li>
-        <li><a href="#">Contacte</a></li>
       </ul>
     </nav>
   </head>
@@ -74,7 +71,16 @@
     window.location.href = '/delete-news/' + postId;
   }
 }
-
     </script>
+    <script th:inline="javascript">
+      var loginSuccessParam = ${param.loginSuccess}; // Get the query parameter value
+
+      if (loginSuccessParam === 'true') {
+          window.onload = function() {
+              alert('Login successful!');
+          };
+      }
+    </script>
+
   </body>
 </html>

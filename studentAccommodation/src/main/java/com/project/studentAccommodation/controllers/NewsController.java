@@ -4,16 +4,19 @@ import com.project.studentAccommodation.models.NewsPost;
 import com.project.studentAccommodation.repositories.NewsPostRepository;
 import com.project.studentAccommodation.service.FileStorageService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Controller
 public class NewsController {
@@ -24,8 +27,11 @@ public class NewsController {
     private FileStorageService fileStorageService;
 
     @GetMapping("/news")
-    public String showNewsPage() {
-        return "news";
+    public String showNewsPage(HttpSession session) {
+        String userRole = (String) session.getAttribute("userRole");
+        if(!Objects.equals(userRole, "ADMIN"))
+            return "redirect:/";
+        else return "news";
     }
     @PostMapping("/save-news")
     public String saveNews(@ModelAttribute NewsPost newsPost, @RequestParam("file") MultipartFile file) throws IOException {

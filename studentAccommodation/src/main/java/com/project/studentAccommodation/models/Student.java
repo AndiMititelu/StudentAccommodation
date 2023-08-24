@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "students")
@@ -46,6 +44,7 @@ public class Student extends User {
     //    @ManyToOne
 //    @JoinColumn(name = "confirmed_accommodation_id")
     protected Boolean confirmedAccommodation;
+    protected Boolean submittedForm;
 
     public Student(String nrMatricol, String email, String password) {
         this.nrMatricol = nrMatricol;

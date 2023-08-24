@@ -150,3 +150,46 @@
       margin-top: 30px;
       text-align: center;
   }
+
+  /* Responsive styles for the login form */
+  @media (max-width: 768px) {
+    h2 {
+       font-size: 20px; /* Adjust font size for better visibility */
+    }
+
+    body {
+      padding: 10px; /* Adjust padding for smaller screens */
+    }
+    section {
+        padding: 10px;
+        max-width: 550px;
+    }
+
+    .container {
+      max-width: 100%; /* Adjust width for smaller screens */
+      margin: 0; /* Remove margin for smaller screens */
+    }
+
+    .container .form {
+      width: 100%; /* Adjust width for smaller screens */
+      padding: 20px; /* Adjust padding for smaller screens */
+    }
+
+    /* Adjust font size and other styles as needed */
+    .form .title {
+      font-size: 24px;
+    }
+
+    .input-field input {
+      padding: 0 20px; /* Adjust padding for smaller screens */
+      font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    .input-field i {
+      font-size: 18px; /* Adjust icon size for smaller screens */
+    }
+
+    .form .button input {
+      font-size: 16px; /* Adjust font size for smaller screens */
+    }
+  }

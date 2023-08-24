@@ -23,7 +23,6 @@ public class AuthenticationController {
     private StudentService studentService;
     @Autowired
     private AdminService adminService;
-
     @Autowired
     private AdminRepository adminRepository;
     @Autowired
@@ -52,7 +51,7 @@ public class AuthenticationController {
                 session.setAttribute("userRole", "STUDENT"); // Store the user's role in the session
                 student.setRole(Role.STUDENT);
                 studentService.updateStudent(student);
-                return "redirect:/";
+                return "redirect:/?loginSuccess=true";
             }
             else {
                 // Authentication failed, redirect back to authentication page
@@ -68,7 +67,7 @@ public class AuthenticationController {
                 session.setAttribute("userRole", "ADMIN"); // Store the user's role in the session
                 admin.setRole(Role.ADMIN);
                 adminService.updateAdmin(admin);
-                return "redirect:/";
+                return "redirect:/?loginSuccess=true";
             }
             else {
                 redirectAttributes.addFlashAttribute("error", "Invalid credentials");
@@ -87,7 +86,7 @@ public class AuthenticationController {
             session.setAttribute("loggedInUser", registeredStudent);
             session.setAttribute("userRole", "STUDENT");
 
-            return "redirect:/";
+            return "redirect:/?loginSuccess=true";
         }
         else {
             //Registration failed, redirect back to authentication page

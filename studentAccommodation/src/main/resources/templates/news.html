@@ -15,38 +15,44 @@
     <label for="check" class="checkbtn">
       <i class="fas fa-bars"></i>
     </label>
-    <label class="logo">BigLogo</label>
+    <label class="logo">StudentAccommo</label>
     <ul>
       <li><a th:href="@{/}">Acasă</a></li>
-      <li><a class="active" th:href="@{/news}">Anunțuri</a></li>
-      <li><a th:href="@{/form}">Înscriere cazare</a></li>
-      <li><a href="#">Spații de cazare</a></li>
+      <li th:if="${session.userRole eq 'ADMIN'}">
+        <a th:href="@{/news}">Anunțuri</a>
+      </li>
+      <li th:if="${session.userRole eq 'STUDENT'}">
+        <a th:href="@{/form}">Înscriere cazare</a>
+      </li>
+      <li th:if="${session.userRole eq 'ADMIN'}">
+        <a th:href="@{/admin/manage}">Lista studenți</a>
+      </li>
+      <li th:unless="${session.loggedInUser}"><a th:href="@{/form}">Înscriere cazare</a></li>
       <li th:if="${session.loggedInUser}">
         <a th:href="@{/logout}" data-confirm="Are you sure you want to log out?">Logout</a>
       </li>
       <li th:unless="${session.loggedInUser}">
         <a th:href="@{/login}">Login</a>
       </li>
-      <li><a href="#">Contacte</a></li>
     </ul>
   </nav>
 </head>
 <body>
   <div class="main">
     <section class="important">
-      <h2 class="text-center">Write a Post</h2>
+      <h2 class="text-center">Scrie un anunț</h2>
       <form method="post" action="/save-news" enctype="multipart/form-data">
         <div class="twothirds container">
-          <label for="title" class="form-label">News title:</label><br>
+          <label for="title" class="form-label">Titlu:</label><br>
           <input type="text" id="title" name="title" class="form-control" size="40" required><br><br>
-          <label for="newstext" class="form-label">Content:</label><br>
+          <label for="newstext" class="form-label">Conținut:</label><br>
           <textarea id="newstext" name="content" class="form-control" rows="15" cols="67" required></textarea><br>
-          <label for="file">File:</label><br>
+          <label for="file">Fișier:</label><br>
           <input type="file" name="file" id="file" class="btn-file">
 
         </div>
         <div class="container">
-          <input type="submit" name="submit" value="Save" class="btn btn-primary">
+          <input type="submit" name="submit" value="Postează" class="btn btn-primary">
         </div>
 
       </form>
