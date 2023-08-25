@@ -6,3 +6,10 @@ unde poate vedea anunțurile postate de către administratori. Pentru a putea co
 introduce datele personale, precum numele complet și punctajul obținut la finalul anului universitar, si preferințele pentru căminele puse la dispoziție.
 
 Aplicația dispune și de un modul pentru administratori, unde au acces la lista de studenți înscriși și pot posta sau anunțuri. Administratorii vor verifica dacă datele introduse de studenți sunt corecte (dacă nu, le pot șterge conturile), vor putea rula algoritmul de repartizare în cămine. De asemenea, pentru fiecare tur, adminul va selecta daca studenții și-au confirmat sau nu locul de cazare.
+
+Ca tehnologii am folosit: 
+- Java Spring Boot: pentru dezvoltarea părții server-side a aplicației
+- Thymeleaf: ca motor de șablon pentru a genera pagini HTML dinamic
+- PostgreSQL: pentru gestionarea bazelor de date
+- HTML/CSS/JS: pentru structura și stilizarea paginilor web
+- HTTP și API-uri: comunicarea între back-end și front-end prin intermediul protocoalelor HTTP
